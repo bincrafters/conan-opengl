@@ -50,7 +50,7 @@ class OpenGLConan(ConanFile):
                 if tools.os_info.with_apt or tools.os_info.with_yum:
                     installer = tools.SystemPackageTool()
                     packages = []
-                    packages_apt = ["libgl-mesa-dev"]
+                    packages_apt = ["libgl1-mesa-dev"]
                     packages_yum = ["mesa-libGL-devel"]
 
                     if tools.os_info.with_apt:
