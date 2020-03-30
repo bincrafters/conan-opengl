@@ -47,16 +47,18 @@ class OpenGLConan(ConanFile):
             # Note: If you want to disable installation on your system
             # set CONAN_SYSREQUIRES_MODE to disabled
             if self.settings.os == "Linux" and tools.os_info.is_linux:
-                packages = []
-                packages_apt = ["mesa-common-dev"]
-                packages_yum = ["mesa-libGL-devel"]
+                if tools.os_info.with_apt or tools.os_info.with_yum:
+                    installer = tools.SystemPackageTool()
+                    packages = []
+                    packages_apt = ["mesa-common-dev"]
+                    packages_yum = ["mesa-libGL-devel"]
 
-                if tools.os_info.with_apt:
-                    packages = packages_apt
-                elif tools.os_info.with_yum:
-                    packages = packages_yum
-                for package in packages:
-                    installer.install(package)
+                    if tools.os_info.with_apt:
+                        packages = packages_apt
+                    elif tools.os_info.with_yum:
+                        packages = packages_yum
+                    for package in packages:
+                        installer.install(package)
 
     def requirements(self):
         if self.options.provider == "conan":
