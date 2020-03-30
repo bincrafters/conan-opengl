@@ -23,11 +23,9 @@ class OpenGLConan(ConanFile):
     settings = {"os"}
     options = {
         "provider": ["system", "conan"],
-        "mesa_version": ["20.0.1", "19.3.1"],
     }
     default_options = {
         "provider": "system",
-        "mesa_version": "20.0.1",
     }
 
     def configure(self):
@@ -46,12 +44,8 @@ class OpenGLConan(ConanFile):
 
     def requirements(self):
         if self.options.provider == "conan":
-            self.requires("mesa/{}@bincrafters/stable".format(self.options.mesa_version))
+            self.requires("mesa/20.0.1@bincrafters/stable")
     
-    def package_id(self):
-        if self.options.provider == "system":
-            del self.options.mesa_version
-
     def package_info(self):
         if self.options.provider == "system":
             if self.settings.os == "Windows":
