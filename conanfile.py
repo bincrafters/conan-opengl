@@ -13,8 +13,9 @@ class OpenGLConan(ConanFile):
     license = "None"  # TODO: Relax hooks about license attribute for virtual packages? How?
 
     # TODO: Create virtual package for glu - or add here? Creating it separetly probably prevent options conflict
-    # TODO: What about all the OpenGL ES?
-    # TODO: What about all the OpenCL?
+    # TODO: What about OpenGL ES?
+    # TODO: What about OpenCL?
+    # TODO: What about EGL?
     # TODO: Add check if system_libs are installed if provider=system?
     # TODO: Try to install system_libs? Probably not
     # TODO: macOS support for < 10.13 (official OpenGL support) and >= 10.13 (no official OpenGL support)
@@ -41,6 +42,21 @@ class OpenGLConan(ConanFile):
         # This is really, really bad. Is there any better solution to continue support OpenGL on Apple?
         if self.settings.os == "Macos" and tools.os_info.is_macos:
             self.run("brew cask install xquartz")
+
+        if self.options.provider == "system":
+            # Note: If you want to disable installation on your system
+            # set CONAN_SYSREQUIRES_MODE to disabled
+            if self.settings.os == "Linux" and tools.os_info.is_linux:
+                packages = []
+                packages_apt = ["mesa-common-dev"]
+                packages_yum = ["mesa-libGL-devel"]
+
+                if tools.os_info.with_apt:
+                    packages = packages_apt
+                elif tools.os_info.with_yum:
+                    packages = packages_yum
+                for package in packages:
+                    installer.install(package)
 
     def requirements(self):
         if self.options.provider == "conan":
