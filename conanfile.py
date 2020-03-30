@@ -5,7 +5,7 @@ import os
 
 class OpenGLConan(ConanFile):
     name = "opengl"
-    version = "virtual"
+    # version = "virtual"
     description = "Virtual package to provide OpenGL support for other recipes"
     topics = ("conan", "opengl", "gl")
     url = "https://github.com/bincrafters/conan-opengl"
@@ -50,7 +50,7 @@ class OpenGLConan(ConanFile):
                 if tools.os_info.with_apt or tools.os_info.with_yum:
                     installer = tools.SystemPackageTool()
                     packages = []
-                    packages_apt = ["mesa-common-dev"]
+                    packages_apt = ["libgl1-mesa-dev"]
                     packages_yum = ["mesa-libGL-devel"]
 
                     if tools.os_info.with_apt:
@@ -63,7 +63,7 @@ class OpenGLConan(ConanFile):
     def requirements(self):
         if self.options.provider == "conan":
             self.requires("mesa/20.0.1@bincrafters/stable")
-    
+           
     def package_info(self):
         if self.options.provider == "system":
             if self.settings.os == "Windows":
