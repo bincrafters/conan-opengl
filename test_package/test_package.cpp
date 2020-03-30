@@ -2,7 +2,11 @@
 #ifdef _WIN32
     #include <windows.h>
 #endif
-#include <GL/gl.h>
+#ifdef __APPLE__
+    #include <OpenGl/gl.h>
+#else
+    #include <GL/gl.h>
+#endif
 
 int main()
 {
