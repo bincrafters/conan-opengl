@@ -57,4 +57,4 @@ class OpenGLConan(ConanFile):
             if self.settings.os == "Windows":
                 self.cpp_info.system_libs.append("opengl32")
             if self.settings.os == "Linux":
-                self.cpp_info.libs.append("GL")
+                self.cpp_info.system_libs.append("GL")
