@@ -63,7 +63,12 @@ class OpenGLConan(ConanFile):
     def requirements(self):
         if self.options.provider == "conan":
             self.requires("mesa/20.0.1@bincrafters/stable")
-    
+
+        if self.options.provider == "system":
+            if self.settings.os == "Linux" and tools.os_info.is_linux:
+                if not tools.which("pkg-config"):
+                    self.requires.add("pkg-config_installer/0.29.2@bincrafters/stable")
+           
     def _add_system_libraries_from_pc(self, library):
         pkg_config = tools.PkgConfig(library, static=False)
         libs = [lib[2:] for lib in pkg_config.libs_only_l]  # cut -l prefix
