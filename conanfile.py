@@ -5,7 +5,7 @@ import os
 
 class OpenGLConan(ConanFile):
     name = "opengl"
-    version = "virtual"
+    # version = "virtual"
     description = "Virtual package to provide OpenGL support for other recipes"
     topics = ("conan", "opengl", "gl")
     url = "https://github.com/bincrafters/conan-opengl"
