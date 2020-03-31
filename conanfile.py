@@ -42,7 +42,7 @@ class OpenGLConan(ConanFile):
 
     def system_requirements(self):
         if self.options.provider == "system":
-            if self.settings.os == "Macos" and tools.os_info.is_macos and tools.Version(self.settings.os.version) >= "10.13":
+            if self.settings.os == "Macos" and tools.os_info.is_macos and tools.Version(tools.os_info.os_version) >= "10.13":
                 # macOS < 10.13 has native OpenGL support and doesn't need to install xquartz for support
                 # This is really, really bad. Is there any better solution to continue support OpenGL on Apple?
                 self.run("brew cask install xquartz")
